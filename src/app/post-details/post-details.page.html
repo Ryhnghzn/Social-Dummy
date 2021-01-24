@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Post Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div >
+  <img [src]="post_image" >
+
+      
+  <ion-chip  color="secondary"  outline="true" *ngFor="let item_tags of post_tag" >
+    <ion-label >
+      {{item_tags}}
+
+    </ion-label>
+  </ion-chip>
+  <ion-item>
+    <h4>
+      <ion-icon name="heart" color="danger"></ion-icon>{{post_likes}} Likes
+
+
+    </h4>
+    <p slot="end">{{post_publishDate | date}}</p>
+  </ion-item>
+
+  <ion-item lines="none" (click)="ownerClicked()">
+    <ion-avatar slot="start">
+      <img [src]="post_owner_picture">
+    </ion-avatar>
+    <h4>{{post_owner_name}}</h4>
+  </ion-item>
+ <ion-item class="ion-padding">
+  <p>{{post_desc}} <span style="color: blue;"><u>{{post_link}}</u></span></p>
+
+ </ion-item>
+ 
+</div>
+
+<div class="ion-padding">
+  <h4>All comments for this posts.</h4>
+</div>
+
+<div class="ion-padding" *ngIf="!post_comments_items">
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+  <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 80px; width: 100%;"></ion-skeleton-text>
+
+</div>
+
+<ion-item *ngFor="let pci of post_comments_items">
+  <h5>{{pci.owner.firstName}} {{pci.owner.lastName}}</h5>
+  <p>{{pci.message}}</p>
+  <p slot="end">{{pci.publishDate | date}}</p>
+</ion-item>
+</ion-content>

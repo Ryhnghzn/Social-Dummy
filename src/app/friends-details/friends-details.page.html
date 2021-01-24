@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{user_name}}'s Page</ion-title>
+  </ion-toolbar>
+<ion-row  style="background-color: aliceblue;">
+  <ion-col size="4">
+    <div class="div-img">
+      <img class="img-user" [src]="user_picture">
+
+    </div>
+  </ion-col>
+  <ion-col size="8">
+    <div>
+      <h4>{{user_name}}</h4>
+          <p> <ion-icon name="mail-outline"></ion-icon>  {{user_email}}</p>
+
+          <p> <ion-icon name="call-outline"></ion-icon>  {{user_phone}}</p>
+
+    </div>
+  </ion-col>
+</ion-row>
+<div style="background-color: #fff;">
+  <ion-button *ngIf="more_info == 0" (click)="moreInfoClicked()" size="block" color="secondary">More Info </ion-button>
+
+</div>
+<div class="animated fadeIn" *ngIf="more_info == 1">
+  <ion-item>
+    <ion-icon slot="start" *ngIf="user_gender == 'male'" color="primary" name="male-outline"></ion-icon>
+    <ion-icon slot="start"   *ngIf="user_gender == 'female'" color="danger" name="female-outline"></ion-icon>
+
+    <ion-label position="stacked">Gender</ion-label>
+    <ion-input readonly="true" [(ngModel)]="user_gender"></ion-input>
+    
+   
+  </ion-item>
+  <ion-item>
+    <ion-icon slot="start" name="calendar-outline"></ion-icon>
+    <ion-label position="stacked">Date Of Birth</ion-label>
+    <ion-datetime [(ngModel)]="user_dob"   readonly="true"></ion-datetime>
+
+  </ion-item>
+
+  <ion-item>
+    <ion-icon slot="start" name="calendar-outline"></ion-icon>
+    <ion-label position="stacked">Register Date</ion-label>
+    <ion-datetime [(ngModel)]="user_register_date"  readonly="true"></ion-datetime>
+  </ion-item>
+
+</div>
+<ion-button *ngIf="more_info == 1" (click)="moreInfoClicked()" size="block" color="danger">Close More Info </ion-button>
+
+  
+</ion-header>
+
+<ion-content>
+
+  <div style="text-align: center;" class="ion-padding-start">
+    <h4>{{user_name}}'s Post</h4>
+
+  </div>
+
+  
+  <div class="ion-padding" *ngIf="!post_items">
+    <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 250px; width: 100%;"></ion-skeleton-text>
+    <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 250px; width: 100%;"></ion-skeleton-text>
+
+    <ion-skeleton-text animated color="dark" style="border-radius: 10px;height: 250px; width: 100%;"></ion-skeleton-text>
+
+  </div>
+
+  <ion-card class="card-item" *ngFor="let item of post_items">
+    <img [src]="item.image">
+
+    
+    <ion-chip color="seconday" *ngFor="let item_tags of item.tags; let i = index">
+      <ion-label color="secondary">
+        {{item_tags}}
+
+      </ion-label>
+    </ion-chip>
+    <ion-item>
+      <h4>
+        <ion-icon name="heart" color="danger"></ion-icon>{{item.likes}} Likes
+
+
+      </h4>
+      <p slot="end">{{item.publishDate | date}}</p>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img [src]="item.owner.picture">
+      </ion-avatar>
+      <h4>{{item.owner.firstName}} {{item.owner.lastName}}</h4>
+    </ion-item>
+   <div class="ion-padding">
+    <p>{{item.text}}</p>
+
+   </div>
+   
+  </ion-card>
+
+</ion-content>
